@@ -1,7 +1,5 @@
 package com.plcoding.cryptotracker.crypto.presentation.coin_list
 
-import android.content.Context
-import android.widget.Toast
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -34,7 +32,7 @@ import kotlinx.coroutines.withContext
 @Composable
 fun CoinListScreen (
     state: CoinListState,
-
+    onAction: (CoinListAction) -> Unit,
     modifier: Modifier = Modifier
 ) {
 
@@ -55,7 +53,7 @@ fun CoinListScreen (
             items(state.coins) { coinUi ->
                 CoinListItem(
                     coinUi = coinUi,
-                    onClick = {},
+                    onClick = {onAction(CoinListAction.OnCoinClick(coinUi))},
                     modifier = Modifier.fillParentMaxWidth()
                 )
                 HorizontalDivider()
@@ -75,7 +73,8 @@ private fun CoinListScreenPreview() {
                 }
             ),
 
-            modifier = Modifier.background(MaterialTheme.colorScheme.background)
+            modifier = Modifier.background(MaterialTheme.colorScheme.background),
+            onAction = {}
         )
     }
 }
